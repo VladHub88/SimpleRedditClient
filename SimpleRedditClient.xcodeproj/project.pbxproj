@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A592E8BA1FA4DD96005B78EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A592E8B91FA4DD96005B78EC /* AppDelegate.swift */; };
-		A592E8BC1FA4DD96005B78EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A592E8BB1FA4DD96005B78EC /* ViewController.swift */; };
+		A592E8BC1FA4DD96005B78EC /* SRCNewsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A592E8BB1FA4DD96005B78EC /* SRCNewsContainerViewController.swift */; };
 		A592E8BF1FA4DD97005B78EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A592E8BD1FA4DD97005B78EC /* Main.storyboard */; };
 		A592E8C11FA4DD97005B78EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A592E8C01FA4DD97005B78EC /* Assets.xcassets */; };
 		A592E8C41FA4DD97005B78EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A592E8C21FA4DD97005B78EC /* LaunchScreen.storyboard */; };
@@ -28,7 +28,7 @@
 /* Begin PBXFileReference section */
 		A592E8B61FA4DD96005B78EC /* SimpleRedditClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleRedditClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A592E8B91FA4DD96005B78EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A592E8BB1FA4DD96005B78EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A592E8BB1FA4DD96005B78EC /* SRCNewsContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRCNewsContainerViewController.swift; sourceTree = "<group>"; };
 		A592E8BE1FA4DD97005B78EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A592E8C01FA4DD97005B78EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A592E8C31FA4DD97005B78EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -77,8 +77,10 @@
 		A592E8B81FA4DD96005B78EC /* SimpleRedditClient */ = {
 			isa = PBXGroup;
 			children = (
+				A592E8DA1FA4E6C8005B78EC /* Model */,
+				A592E8D91FA4E6B9005B78EC /* Services */,
+				A592E8DB1FA4E6D2005B78EC /* Controllers */,
 				A592E8B91FA4DD96005B78EC /* AppDelegate.swift */,
-				A592E8BB1FA4DD96005B78EC /* ViewController.swift */,
 				A592E8BD1FA4DD97005B78EC /* Main.storyboard */,
 				A592E8C01FA4DD97005B78EC /* Assets.xcassets */,
 				A592E8C21FA4DD97005B78EC /* LaunchScreen.storyboard */,
@@ -94,6 +96,28 @@
 				A592E8D01FA4DD97005B78EC /* Info.plist */,
 			);
 			path = SimpleRedditClientTests;
+			sourceTree = "<group>";
+		};
+		A592E8D91FA4E6B9005B78EC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A592E8DA1FA4E6C8005B78EC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A592E8DB1FA4E6D2005B78EC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A592E8BB1FA4DD96005B78EC /* SRCNewsContainerViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,7 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A592E8BC1FA4DD96005B78EC /* ViewController.swift in Sources */,
+				A592E8BC1FA4DD96005B78EC /* SRCNewsContainerViewController.swift in Sources */,
 				A592E8BA1FA4DD96005B78EC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
