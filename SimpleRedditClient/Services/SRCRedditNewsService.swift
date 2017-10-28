@@ -16,31 +16,36 @@ class SRCRedditNewsService: SRCNewsService {
         printEnterLog()
         
         guard let topNewsUrl = URL(string: Constants.baseRedditUrl + Constants.topNewsPathComponent) else {
+            print("\(getFileAndFunctionTitle()). Failed to get correct url for news downloading.")
             completion(nil, SRCNewsServiceError.invalidUrl)
             return
         }
         
-        let topNewsTask = session.dataTask(with: topNewsUrl) { [weak self] (topNewsData, response, error) in
-            guard error == nil, let topNewsData = topNewsData,
-                let topNewsJson = (try? JSONSerialization.jsonObject(with: topNewsData, options: []) as? [String : Any]),
-                let topNewsDataDictionary = topNewsJson?[Constants.dataKey] as? [String: Any],
-                let topNewsChildren = topNewsDataDictionary[Constants.childrenKey] as? [[String: Any]] else {
-
-                completion(nil, error ?? SRCNewsServiceError.invalidDataReceived)
-                return
-            }
-            
-            let posts = topNewsChildren.flatMap{ SRCRedditPost(json: $0) }
-            self?.lastDownloadedPost = posts.last
-            print("\(getFileAndFunctionTitle()). Successfully parsed \(posts.count) posts.")
-            completion(posts,nil)
+        getNews(fromUrl: topNewsUrl) { [weak self] (posts, error) in
+            self?.lastDownloadedPost = posts?.last
+            completion(posts, error)
         }
-        
-        topNewsTask.resume()
     }
     
     func getTopNewsNextBatch(completion: @escaping ([SRCPost]?, Error?) -> Swift.Void) {
         printEnterLog()
+        
+        guard let lastDownloadedPostName = lastDownloadedPost?.name else {
+            return getTopNews(completion: completion)
+        }
+        
+        let nextBatchPath = Constants.baseRedditUrl + Constants.topNewsPathComponent + Constants.parametersSectionSymbol +
+            Constants.afterParameterKey + lastDownloadedPostName
+        
+        guard let nextBatchUrl = URL(string: nextBatchPath) else {
+            print("\(getFileAndFunctionTitle()). Failed to get correct url for news downloading.")
+            return completion(nil, SRCNewsServiceError.invalidUrl)
+        }
+        
+        getNews(fromUrl: nextBatchUrl) { [weak self] (posts, error) in
+            self?.lastDownloadedPost = posts?.last
+            completion(posts, error)
+        }
     }
     
     /////////////////////////////////////////
@@ -50,9 +55,40 @@ class SRCRedditNewsService: SRCNewsService {
         let sessionConfiguration = URLSessionConfiguration.default
         let additionalHeadersDict = [Constants.userAgentHeaderKey: Constants.simpleRedditClientAgentHeader]
         sessionConfiguration.httpAdditionalHeaders = additionalHeadersDict
-        return URLSession(configuration: .default)
+        return URLSession(configuration: sessionConfiguration)
     }()
-    private var lastDownloadedPost: SRCRedditPost?
+    private var lastDownloadedPost: SRCPost?
+    
+    // MARK: Helpers
+    private func getNews(fromUrl newsUrl: URL, completion: @escaping ([SRCPost]?, Error?) -> Swift.Void) {
+        let getNewsTask = session.dataTask(with: newsUrl) { [weak self] (newsData, response, error) in
+            guard error == nil, let posts = self?.parsePostsFromNewsData(newsData: newsData) else {
+                print("\(getFileAndFunctionTitle()). Failed to download or parse posts from url \(newsUrl).")
+                completion(nil, error ?? SRCNewsServiceError.invalidDataReceived)
+                return
+            }
+            
+            print("\(getFileAndFunctionTitle()). Successfully downloaded and parsed \(posts.count) posts.")
+            completion(posts,nil)
+        }
+        
+        getNewsTask.resume()
+    }
+    
+    private func parsePostsFromNewsData(newsData: Data?) -> [SRCPost]? {
+        printEnterLog()
+        
+        guard let newsData = newsData,
+            let newsJson = (try? JSONSerialization.jsonObject(with: newsData, options: []) as? [String : Any]),
+            let dataJson = newsJson?[Constants.dataKey] as? [String: Any],
+            let postsJson = dataJson[Constants.childrenKey] as? [[String: Any]] else {
+
+            return nil
+        }
+        
+        let posts = postsJson.flatMap({ SRCRedditPost(json: $0) })
+        return posts
+    }
     
     // MARK: Types
     private struct Constants {
@@ -63,5 +99,8 @@ class SRCRedditNewsService: SRCNewsService {
         static let topNewsPathComponent = "top/.json"
         static let childrenKey = "children"
         static let dataKey = "data"
+        static let parametersSectionSymbol = "?"
+        static let parametersSeparationSymbol = "&"
+        static let afterParameterKey = "after="
     }
 }
