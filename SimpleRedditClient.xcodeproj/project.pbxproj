@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A56DF8C51FA4FE0A00907DB4 /* SRCNewsServiceErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56DF8C41FA4FE0A00907DB4 /* SRCNewsServiceErrors.swift */; };
+		A56DF8C81FA5061F00907DB4 /* SRCLogUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56DF8C71FA5061F00907DB4 /* SRCLogUtils.swift */; };
 		A592E8BA1FA4DD96005B78EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A592E8B91FA4DD96005B78EC /* AppDelegate.swift */; };
 		A592E8BC1FA4DD96005B78EC /* SRCNewsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A592E8BB1FA4DD96005B78EC /* SRCNewsContainerViewController.swift */; };
 		A592E8BF1FA4DD97005B78EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A592E8BD1FA4DD97005B78EC /* Main.storyboard */; };
 		A592E8C11FA4DD97005B78EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A592E8C01FA4DD97005B78EC /* Assets.xcassets */; };
 		A592E8C41FA4DD97005B78EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A592E8C21FA4DD97005B78EC /* LaunchScreen.storyboard */; };
 		A592E8CF1FA4DD97005B78EC /* SimpleRedditClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A592E8CE1FA4DD97005B78EC /* SimpleRedditClientTests.swift */; };
+		A592E8DD1FA4E857005B78EC /* SRCNewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A592E8DC1FA4E857005B78EC /* SRCNewsService.swift */; };
+		A592E8DF1FA4E9AC005B78EC /* SRCPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = A592E8DE1FA4E9AC005B78EC /* SRCPost.swift */; };
+		A592E8E11FA4E9EF005B78EC /* SRCRedditNewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A592E8E01FA4E9EF005B78EC /* SRCRedditNewsService.swift */; };
+		A592E8E31FA4EA5A005B78EC /* SRCRedditPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = A592E8E21FA4EA5A005B78EC /* SRCRedditPost.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A56DF8C41FA4FE0A00907DB4 /* SRCNewsServiceErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCNewsServiceErrors.swift; sourceTree = "<group>"; };
+		A56DF8C71FA5061F00907DB4 /* SRCLogUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCLogUtils.swift; sourceTree = "<group>"; };
 		A592E8B61FA4DD96005B78EC /* SimpleRedditClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleRedditClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A592E8B91FA4DD96005B78EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A592E8BB1FA4DD96005B78EC /* SRCNewsContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRCNewsContainerViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +44,10 @@
 		A592E8CA1FA4DD97005B78EC /* SimpleRedditClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleRedditClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A592E8CE1FA4DD97005B78EC /* SimpleRedditClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleRedditClientTests.swift; sourceTree = "<group>"; };
 		A592E8D01FA4DD97005B78EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A592E8DC1FA4E857005B78EC /* SRCNewsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCNewsService.swift; sourceTree = "<group>"; };
+		A592E8DE1FA4E9AC005B78EC /* SRCPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCPost.swift; sourceTree = "<group>"; };
+		A592E8E01FA4E9EF005B78EC /* SRCRedditNewsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCRedditNewsService.swift; sourceTree = "<group>"; };
+		A592E8E21FA4EA5A005B78EC /* SRCRedditPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCRedditPost.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A56DF8C61FA505E200907DB4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A56DF8C71FA5061F00907DB4 /* SRCLogUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		A592E8AD1FA4DD96005B78EC = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +100,7 @@
 				A592E8DA1FA4E6C8005B78EC /* Model */,
 				A592E8D91FA4E6B9005B78EC /* Services */,
 				A592E8DB1FA4E6D2005B78EC /* Controllers */,
+				A56DF8C61FA505E200907DB4 /* Utils */,
 				A592E8B91FA4DD96005B78EC /* AppDelegate.swift */,
 				A592E8BD1FA4DD97005B78EC /* Main.storyboard */,
 				A592E8C01FA4DD97005B78EC /* Assets.xcassets */,
@@ -101,6 +122,9 @@
 		A592E8D91FA4E6B9005B78EC /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A56DF8C41FA4FE0A00907DB4 /* SRCNewsServiceErrors.swift */,
+				A592E8DC1FA4E857005B78EC /* SRCNewsService.swift */,
+				A592E8E01FA4E9EF005B78EC /* SRCRedditNewsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -108,6 +132,8 @@
 		A592E8DA1FA4E6C8005B78EC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A592E8DE1FA4E9AC005B78EC /* SRCPost.swift */,
+				A592E8E21FA4EA5A005B78EC /* SRCRedditPost.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -225,6 +251,12 @@
 			files = (
 				A592E8BC1FA4DD96005B78EC /* SRCNewsContainerViewController.swift in Sources */,
 				A592E8BA1FA4DD96005B78EC /* AppDelegate.swift in Sources */,
+				A592E8E31FA4EA5A005B78EC /* SRCRedditPost.swift in Sources */,
+				A592E8DF1FA4E9AC005B78EC /* SRCPost.swift in Sources */,
+				A592E8DD1FA4E857005B78EC /* SRCNewsService.swift in Sources */,
+				A56DF8C51FA4FE0A00907DB4 /* SRCNewsServiceErrors.swift in Sources */,
+				A592E8E11FA4E9EF005B78EC /* SRCRedditNewsService.swift in Sources */,
+				A56DF8C81FA5061F00907DB4 /* SRCLogUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +462,7 @@
 				A592E8D51FA4DD97005B78EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A592E8D61FA4DD97005B78EC /* Build configuration list for PBXNativeTarget "SimpleRedditClientTests" */ = {
 			isa = XCConfigurationList;
@@ -438,6 +471,7 @@
 				A592E8D81FA4DD97005B78EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
