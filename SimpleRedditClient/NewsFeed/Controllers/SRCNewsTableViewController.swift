@@ -58,7 +58,7 @@ class SRCNewsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let postCell = tableView.dequeueReusableCell(withIdentifier: SRCNewsTableViewCell.identifier(), for: indexPath) as! SRCNewsTableViewCell
         if let post = posts?[indexPath.row] {
-            postCell.updateWith(title: post.title, author: post.author, numOfComments: post.numberOfComments, date: post.creationDate, thumbnail: nil)
+            postCell.updateWith(title: post.title, author: post.author, numOfComments: post.numberOfComments, date: post.creationDate, thumbnailUrl: post.thumbnailUrl, thumbnailWidth: post.thumbnailWidth, thumbnailHeight: post.thumbnailHeight)
         }
         
         return postCell

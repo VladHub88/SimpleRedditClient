@@ -18,14 +18,14 @@ class SRCNewsTableViewCell: UITableViewCell {
     }
     
     // MARK: Helpers
-    func updateWith(title: String, author: String, numOfComments: Int, date: Date, thumbnail: UIImage?) {
+    func updateWith(title: String, author: String, numOfComments: Int, date: Date, thumbnailUrl: URL?, thumbnailWidth: Float?, thumbnailHeight: Float?) {
         titleLabel.text = title
         authorLabel.text = author
         numOfCommentsLabel.text = "\(numOfComments)"
         dateLabel.text = date.timeAgoString()
         
-        thumbnailImageView.image = thumbnail
-        if thumbnail != nil {
+        if let thumbnailUrl = thumbnailUrl {
+            thumbnailImageView.downloadImageFrom(url:thumbnailUrl, contentMode: UIViewContentMode.scaleAspectFit)
             showThumbnailImageView()
         } else {
             hideThumbnailImageView()

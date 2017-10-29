@@ -15,4 +15,7 @@ protocol SRCPost {
     var author: String { get }
     var creationDate: Date { get }
     var numberOfComments: Int { get }
+    var thumbnailUrl: URL? { get }
+    var thumbnailWidth: Float? { get }
+    var thumbnailHeight: Float? { get }
 }
