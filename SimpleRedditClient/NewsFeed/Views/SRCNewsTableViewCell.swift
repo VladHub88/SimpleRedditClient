@@ -17,31 +17,39 @@ class SRCNewsTableViewCell: UITableViewCell {
         return String(describing: self)
     }
     
-    // MARK: Helpers
-    func updateWith(title: String, author: String, numOfComments: Int, date: Date, thumbnailUrl: URL?, thumbnailWidth: Float?, thumbnailHeight: Float?) {
-        titleLabel.text = title
-        authorLabel.text = author
-        numOfCommentsLabel.text = "\(numOfComments)"
-        dateLabel.text = date.timeAgoString()
-        
-        if let thumbnailUrl = thumbnailUrl {
-            thumbnailImageView.downloadImageFrom(url:thumbnailUrl, contentMode: UIViewContentMode.scaleAspectFit)
-            showThumbnailImageView()
-        } else {
-            hideThumbnailImageView()
+    var contentHeight: CGFloat {
+        guard post != nil else {
+            return 0
         }
+        
+        let contentHeight = authorLabel.intrinsicContentSize.height + dateLabel.intrinsicContentSize.height +
+            titleLabel.intrinsicContentSize.height + 2 * Constants.verticalContentIndent +
+            titleLabelBottomIndentConstraint.constant + commentsLabelBottomIndentConstraint.constant
+        
+        return contentHeight
     }
     
-    func showThumbnailImageView() {
-        thumbnailImageView.isHidden = false
-        NSLayoutConstraint.activate([thumbnailImageViewWidthConstraint])
-        NSLayoutConstraint.deactivate([thumbnailImageViewZeroWidthConstraint])
-    }
-    
-    func hideThumbnailImageView() {
-        thumbnailImageView.isHidden = true
-        NSLayoutConstraint.deactivate([thumbnailImageViewWidthConstraint])
-        NSLayoutConstraint.activate([thumbnailImageViewZeroWidthConstraint])
+    // MARK: Helpers
+    func updateWithPost(_ post: SRCPost, startThumbnailDownload: Bool) {
+        self.post = post
+        titleLabel.text = post.title
+        authorLabel.text = post.author
+        numOfCommentsLabel.text = "\(post.numberOfComments)"
+        dateLabel.text = post.creationDate.timeAgoString()
+        
+        thumbnailImageView.image = UIImage(named: "noThumbnailIcon")
+        if startThumbnailDownload && post.thumbnailUrl != nil {
+            post.downloadThumbnailAsync(completion: { [weak self] (image, error) in
+                guard post.id == self?.post?.id, image != nil else {
+                    return
+                }
+            
+                DispatchQueue.main.async {
+                    self?.thumbnailImageView.contentMode = .scaleAspectFit
+                    self?.thumbnailImageView.image = image
+                }
+            })
+        }
     }
     
     /////////////////////////////////////////
@@ -55,4 +63,14 @@ class SRCNewsTableViewCell: UITableViewCell {
     @IBOutlet private weak var thumbnailImageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var thumbnailImageViewZeroWidthConstraint: NSLayoutConstraint!
     @IBOutlet private weak var thumbnailImageViewLeadingIndentConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var titleLabelBottomIndentConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var commentsLabelBottomIndentConstraint: NSLayoutConstraint!
+    
+    // MARK: Accessors
+    private var post: SRCPost?
+    
+    // MARK: Types
+    private struct Constants {
+        static let verticalContentIndent: CGFloat = 8
+    }
 }

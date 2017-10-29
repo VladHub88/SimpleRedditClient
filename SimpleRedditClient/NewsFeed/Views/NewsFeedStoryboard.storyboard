@@ -130,6 +130,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="authorLabel" destination="Rn3-FG-7PI" id="ih7-Zy-J66"/>
+                                    <outlet property="commentsLabelBottomIndentConstraint" destination="ctU-ps-cRQ" id="UIY-uu-SXP"/>
                                     <outlet property="dateLabel" destination="9Le-yJ-vB5" id="xBv-SM-6rH"/>
                                     <outlet property="numOfCommentsLabel" destination="VRu-Ni-RRN" id="gvN-hD-SGj"/>
                                     <outlet property="thumbnailImageView" destination="XuC-1b-Nhl" id="PJc-2C-QKj"/>
@@ -137,6 +138,7 @@
                                     <outlet property="thumbnailImageViewWidthConstraint" destination="b0I-JV-mFM" id="rFC-iq-3Tt"/>
                                     <outlet property="thumbnailImageViewZeroWidthConstraint" destination="xo8-yv-qt8" id="Ujo-cl-CcH"/>
                                     <outlet property="titleLabel" destination="6Lb-ce-omk" id="gHp-Ru-H7c"/>
+                                    <outlet property="titleLabelBottomIndentConstraint" destination="ZEy-LO-OQt" id="xZm-5s-5ol"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

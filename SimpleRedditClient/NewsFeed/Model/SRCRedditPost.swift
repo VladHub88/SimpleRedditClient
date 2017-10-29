@@ -6,6 +6,7 @@
 //  Copyright © 2017 VladVovk. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 class SRCRedditPost: SRCPost {
@@ -21,6 +22,7 @@ class SRCRedditPost: SRCPost {
     private(set) var thumbnailUrl: URL?
     private(set) var thumbnailWidth: Float?
     private(set) var thumbnailHeight: Float?
+    private(set) var thumbnail: UIImage?
     
     // MARK: Init/Deinit
     init?(json: [String: Any]?) {
@@ -45,8 +47,55 @@ class SRCRedditPost: SRCPost {
         self.thumbnailHeight = jsonData[Constants.thumbnailHeightKey] as? Float
     }
     
+    // MARK: Helpers
+    func downloadThumbnailAsync(completion: ((UIImage?, Error?) -> Swift.Void)?) {
+        if self.thumbnailUrl == nil || thumbnail != nil {
+            completion?(thumbnail, nil)
+            return
+        }
+    
+        if thumbnailDownloadInProgress {
+            if completion != nil {
+                thumbnailLock.lock()
+                thumbnailDownloadCompletionHandlers.append(completion!)
+                thumbnailLock.unlock()
+            }
+            return
+        }
+    
+        thumbnailDownloadInProgress = true
+        URLSession.shared.dataTask( with: self.thumbnailUrl!, completionHandler: { [weak self] (data, response, error) -> Void in
+            func invokeCompletionHandlers(image: UIImage?, error: Error?) {
+                self?.thumbnailLock.lock()
+                if let thumbnailDownloadCompletionHandlers = self?.thumbnailDownloadCompletionHandlers {
+                    for completion in thumbnailDownloadCompletionHandlers {
+                        completion(image, error)
+                    }
+                }
+                self?.thumbnailDownloadCompletionHandlers.removeAll()
+                self?.thumbnailLock.unlock()
+            }
+        
+            guard error == nil else {
+                invokeCompletionHandlers(image: nil, error: error)
+                self?.thumbnailDownloadInProgress = false
+                return
+            }
+        
+            self?.thumbnail = data.map{ UIImage(data: $0)! }
+            invokeCompletionHandlers(image: self?.thumbnail, error: nil)
+            self?.thumbnailDownloadInProgress = false
+        }).resume()
+    }
+    
     /////////////////////////////////////////
     // MARK: PRIVATE
+    // MARK: Accessors
+    private var thumbnailDownloadInProgress = false
+    private var thumbnailDownloadCompletionHandlers = [((UIImage?, Error?) -> Void)]()
+    private let thumbnailLock = NSLock()
+    
+    // MARK: Types
     private struct Constants {
         static let idKey = "id"
         static let nameKey = "name"

@@ -58,7 +58,7 @@ class SRCNewsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let postCell = tableView.dequeueReusableCell(withIdentifier: SRCNewsTableViewCell.identifier(), for: indexPath) as! SRCNewsTableViewCell
         if let post = posts?[indexPath.row] {
-            postCell.updateWith(title: post.title, author: post.author, numOfComments: post.numberOfComments, date: post.creationDate, thumbnailUrl: post.thumbnailUrl, thumbnailWidth: post.thumbnailWidth, thumbnailHeight: post.thumbnailHeight)
+            postCell.updateWithPost(post, startThumbnailDownload: true)
         }
         
         return postCell
@@ -81,12 +81,27 @@ class SRCNewsTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        templateNewsTableViewCell.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 0)
+        templateNewsTableViewCell.updateWithPost(posts![indexPath.row], startThumbnailDownload: false)
+        templateNewsTableViewCell.layoutIfNeeded()
+        return templateNewsTableViewCell.contentHeight
+    }
+    
     /////////////////////////////////////////
     // MARK: PRIVATE
     // MARK: Accessors
-    var newsDownloadingInProgress = false
-    var posts: [SRCPost]? {
+    private var _templateNewsTableViewCell: SRCNewsTableViewCell?
+    private var templateNewsTableViewCell: SRCNewsTableViewCell! {
+        if _templateNewsTableViewCell == nil {
+            _templateNewsTableViewCell = (tableView.dequeueReusableCell(withIdentifier: SRCNewsTableViewCell.identifier()) as! SRCNewsTableViewCell)
+        }
+        return _templateNewsTableViewCell!
+    }
+    private var newsDownloadingInProgress = false
+    private var posts: [SRCPost]? {
         didSet {
+            posts?.forEach{$0.downloadThumbnailAsync(completion: nil)}
             DispatchQueue.main.async { [weak self] in
                 self?.tableView.reloadData()
             }

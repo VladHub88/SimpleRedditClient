@@ -6,6 +6,7 @@
 //  Copyright © 2017 VladVovk. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 protocol SRCPost {
@@ -18,4 +19,6 @@ protocol SRCPost {
     var thumbnailUrl: URL? { get }
     var thumbnailWidth: Float? { get }
     var thumbnailHeight: Float? { get }
+    
+    func downloadThumbnailAsync(completion: ((UIImage?, Error?) -> Swift.Void)?)
 }
