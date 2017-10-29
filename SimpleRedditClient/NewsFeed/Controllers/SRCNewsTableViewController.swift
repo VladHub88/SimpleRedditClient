@@ -22,13 +22,18 @@ class SRCNewsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(self.refreshNews), for: UIControlEvents.valueChanged)
     }
 
     // MARK: Helpers
     func refreshNews() {
         printEnterLog()
     
+        refreshControl?.beginRefreshing()
         newsService?.getTopNews(completion: { [weak self] (posts, error) in
+            self?.refreshControl?.endRefreshing()
             guard error == nil else {
                 // TODO: Show alert
                 return
@@ -56,6 +61,7 @@ class SRCNewsTableViewController: UITableViewController {
     
     /////////////////////////////////////////
     // MARK: PRIVATE
+    // MARK: Accessors
     var posts: [SRCPost]? {
         didSet {
             DispatchQueue.main.async { [weak self] in
