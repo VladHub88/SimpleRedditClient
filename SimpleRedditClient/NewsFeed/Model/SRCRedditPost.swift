@@ -23,6 +23,7 @@ class SRCRedditPost: SRCPost {
     private(set) var thumbnailWidth: Float?
     private(set) var thumbnailHeight: Float?
     private(set) var thumbnail: UIImage?
+    private(set) var fullImageUrl: URL?
     
     // MARK: Init/Deinit
     init?(json: [String: Any]?) {
@@ -45,6 +46,7 @@ class SRCRedditPost: SRCPost {
         self.thumbnailUrl = (jsonData[Constants.thumbnailKey] as? String).map({URL(string: $0)}) as? URL
         self.thumbnailWidth = jsonData[Constants.thumbnailWidthKey] as? Float
         self.thumbnailHeight = jsonData[Constants.thumbnailHeightKey] as? Float
+        self.fullImageUrl = (jsonData[Constants.fullImageUrlKey] as? String).map({URL(string: $0)}) as? URL
     }
     
     // MARK: Helpers
@@ -107,5 +109,6 @@ class SRCRedditPost: SRCPost {
         static let thumbnailKey = "thumbnail"
         static let thumbnailWidthKey = "thumbnail_width"
         static let thumbnailHeightKey = "thumbnail_height"
+        static let fullImageUrlKey = "url"
     }
 }

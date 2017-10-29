@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SRCNewsContainerViewController: UIViewController {
+class SRCNewsContainerViewController: UIViewController, SRCNewsTableViewControllerDelegate {
     /////////////////////////////////////////
     // MARK: INTERNAL
     // MARK: Accessors
@@ -30,14 +30,26 @@ class SRCNewsContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SRCNewsTableViewController.identifier(),
             let newsTableViewController = segue.destination as? SRCNewsTableViewController {
             newsTableViewController.newsService = newsService
             newsTableViewController.refreshNews()
+            newsTableViewController.delegate = self
             self.tableViewController = newsTableViewController
         }
+    }
+    
+    // MARK: SRCNewsTableViewControllerDelegate
+    func newsTableViewControllerShowGalleryInitiated(post: SRCPost) {
+        let galleryViewController = SRCNewsGalleryViewController.createNewsGalleryViewController(post: post)
+        navigationController?.pushViewController(galleryViewController, animated: true)
     }
     
     /////////////////////////////////////////

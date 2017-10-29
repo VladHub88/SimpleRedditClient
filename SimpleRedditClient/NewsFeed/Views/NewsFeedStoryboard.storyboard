@@ -46,7 +46,7 @@
         <scene sceneID="E5P-hA-mvE">
             <objects>
                 <tableViewController id="mMc-wc-icq" customClass="SRCNewsTableViewController" customModule="SimpleRedditClient" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="102" sectionHeaderHeight="28" sectionFooterHeight="28" id="keY-kK-2Pp">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="102" sectionHeaderHeight="28" sectionFooterHeight="28" id="keY-kK-2Pp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -60,6 +60,7 @@
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XuC-1b-Nhl">
                                             <rect key="frame" x="8" y="8" width="80" height="80"/>
+                                            <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="b0I-JV-mFM"/>
                                                 <constraint firstAttribute="height" constant="80" id="gze-UW-mUB"/>

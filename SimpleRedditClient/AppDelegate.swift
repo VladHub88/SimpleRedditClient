@@ -16,7 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         if let window = self.window {
            let newsContainerViewController = SRCNewsContainerViewController.createNewsContainerViewController(newsService: SRCRedditNewsService())
-           window.rootViewController = newsContainerViewController
+           let navigationController = UINavigationController(rootViewController: newsContainerViewController)
+           window.rootViewController = navigationController
         }
     
         return true

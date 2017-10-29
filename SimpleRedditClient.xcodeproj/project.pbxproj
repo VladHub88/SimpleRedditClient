@@ -24,6 +24,7 @@
 		A59A3F751FA5F6EC005173FB /* NewsFeedStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A59A3F741FA5F6EC005173FB /* NewsFeedStoryboard.storyboard */; };
 		A59A3F781FA601B6005173FB /* Date+FormattersExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59A3F771FA601B6005173FB /* Date+FormattersExtension.swift */; };
 		A5AE072C1FA62B9500C6A0CD /* UIImageView+AsyncImageLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AE072B1FA62B9500C6A0CD /* UIImageView+AsyncImageLoading.swift */; };
+		A5CD4E861FA65FD600991589 /* SRCNewsGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CD4E851FA65FD600991589 /* SRCNewsGalleryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		A59A3F741FA5F6EC005173FB /* NewsFeedStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = NewsFeedStoryboard.storyboard; path = Views/NewsFeedStoryboard.storyboard; sourceTree = "<group>"; };
 		A59A3F771FA601B6005173FB /* Date+FormattersExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+FormattersExtension.swift"; sourceTree = "<group>"; };
 		A5AE072B1FA62B9500C6A0CD /* UIImageView+AsyncImageLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AsyncImageLoading.swift"; sourceTree = "<group>"; };
+		A5CD4E851FA65FD600991589 /* SRCNewsGalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRCNewsGalleryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 			children = (
 				A592E8BB1FA4DD96005B78EC /* SRCNewsContainerViewController.swift */,
 				A56DF8C91FA5340000907DB4 /* SRCNewsTableViewController.swift */,
+				A5CD4E851FA65FD600991589 /* SRCNewsGalleryViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				A592E8BA1FA4DD96005B78EC /* AppDelegate.swift in Sources */,
 				A592E8E31FA4EA5A005B78EC /* SRCRedditPost.swift in Sources */,
 				A592E8DF1FA4E9AC005B78EC /* SRCPost.swift in Sources */,
+				A5CD4E861FA65FD600991589 /* SRCNewsGalleryViewController.swift in Sources */,
 				A5AE072C1FA62B9500C6A0CD /* UIImageView+AsyncImageLoading.swift in Sources */,
 				A56DF8CA1FA5340100907DB4 /* SRCNewsTableViewController.swift in Sources */,
 				A56DF8CE1FA5E28C00907DB4 /* SRCNewsTableViewCell.swift in Sources */,

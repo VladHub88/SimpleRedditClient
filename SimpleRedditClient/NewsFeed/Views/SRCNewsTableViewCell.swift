@@ -9,10 +9,16 @@
 import UIKit
 import Foundation
 
+protocol SRCNewsTableViewCellDelegate: class {
+    func newsTableViewCellThumbnailTapped(sender: SRCNewsTableViewCell)
+}
+
 class SRCNewsTableViewCell: UITableViewCell {
     /////////////////////////////////////////
     // MARK: PRIVATE
     // MARK: Accessors
+    weak var delegate: SRCNewsTableViewCellDelegate?
+    private(set) var post: SRCPost?
     class func identifier() -> String {
         return String(describing: self)
     }
@@ -27,6 +33,14 @@ class SRCNewsTableViewCell: UITableViewCell {
             titleLabelBottomIndentConstraint.constant + commentsLabelBottomIndentConstraint.constant
         
         return contentHeight
+    }
+    
+    // MARK: Init/Deinit
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleThumbnailTap))
+        thumbnailImageView.addGestureRecognizer(tapGestureRecognizer)
+        thumbnailImageView.isUserInteractionEnabled = true
     }
     
     // MARK: Helpers
@@ -52,6 +66,10 @@ class SRCNewsTableViewCell: UITableViewCell {
         }
     }
     
+    func handleThumbnailTap() {
+        delegate?.newsTableViewCellThumbnailTapped(sender: self)
+    }
+    
     /////////////////////////////////////////
     // MARK: PRIVATE
     // MARK: Outlets
@@ -65,10 +83,7 @@ class SRCNewsTableViewCell: UITableViewCell {
     @IBOutlet private weak var thumbnailImageViewLeadingIndentConstraint: NSLayoutConstraint!
     @IBOutlet private weak var titleLabelBottomIndentConstraint: NSLayoutConstraint!
     @IBOutlet private weak var commentsLabelBottomIndentConstraint: NSLayoutConstraint!
-    
-    // MARK: Accessors
-    private var post: SRCPost?
-    
+
     // MARK: Types
     private struct Constants {
         static let verticalContentIndent: CGFloat = 8

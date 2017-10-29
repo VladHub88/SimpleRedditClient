@@ -9,13 +9,18 @@
 import UIKit
 import Foundation
 
-class SRCNewsTableViewController: UITableViewController {
+protocol SRCNewsTableViewControllerDelegate: class {
+    func newsTableViewControllerShowGalleryInitiated(post: SRCPost)
+}
+
+class SRCNewsTableViewController: UITableViewController, SRCNewsTableViewCellDelegate {
     /////////////////////////////////////////
     // MARK: INTERNAL
     // MARK: Accessors
     class func identifier() -> String {
         return String(describing: self)
     }
+    weak var delegate: SRCNewsTableViewControllerDelegate?
     var newsService: SRCNewsService?
     
     // MARK: UIView lifecycle
@@ -57,6 +62,7 @@ class SRCNewsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let postCell = tableView.dequeueReusableCell(withIdentifier: SRCNewsTableViewCell.identifier(), for: indexPath) as! SRCNewsTableViewCell
+        postCell.delegate = self
         if let post = posts?[indexPath.row] {
             postCell.updateWithPost(post, startThumbnailDownload: true)
         }
@@ -86,6 +92,15 @@ class SRCNewsTableViewController: UITableViewController {
         templateNewsTableViewCell.updateWithPost(posts![indexPath.row], startThumbnailDownload: false)
         templateNewsTableViewCell.layoutIfNeeded()
         return templateNewsTableViewCell.contentHeight
+    }
+    
+    //MARK: SRCNewsTableViewCellDelegate
+    func newsTableViewCellThumbnailTapped(sender: SRCNewsTableViewCell) {
+        guard let post = sender.post else {
+            return
+        }
+        
+        delegate?.newsTableViewControllerShowGalleryInitiated(post: post)
     }
     
     /////////////////////////////////////////
