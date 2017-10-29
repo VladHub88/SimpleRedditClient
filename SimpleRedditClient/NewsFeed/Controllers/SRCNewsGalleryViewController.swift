@@ -37,11 +37,14 @@ class SRCNewsGalleryViewController: UIViewController {
                 
                 if image == nil {
                     self?.setDefaultImage()
+                } else {
+                    self?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(self?.share(_:)))
                 }
             })
         } else {
             setDefaultImage()
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,5 +71,14 @@ class SRCNewsGalleryViewController: UIViewController {
         imageView.image = UIImage(named: "noThumbnailIcon")
         activityIndicatorView.stopAnimating()
         activityIndicatorView.removeFromSuperview()
+    }
+    
+    @objc private func share(_ sender: AnyObject) {
+        guard let image = imageView.image else {
+            return
+        }
+
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
     }
 }
