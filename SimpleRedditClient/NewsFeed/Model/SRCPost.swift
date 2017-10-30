@@ -19,7 +19,7 @@ protocol SRCPost {
     var thumbnailUrl: URL? { get }
     var thumbnailWidth: Float? { get }
     var thumbnailHeight: Float? { get }
-    var fullImageUrl: URL? { get }
+    var postUrl: URL? { get }
     
     func downloadThumbnailAsync(completion: ((UIImage?, Error?) -> Swift.Void)?)
 }

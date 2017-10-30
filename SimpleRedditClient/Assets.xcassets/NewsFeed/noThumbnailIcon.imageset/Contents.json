@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Screen Shot 2017-10-29 at 18.51.09-2.png",
+      "filename" : "noThumbnailIcon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Screen Shot 2017-10-29 at 18.51.09.png",
+      "filename" : "noThumbnailIcon-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Screen Shot 2017-10-29 at 18.51.09-1.png",
+      "filename" : "noThumbnailIcon-2.png",
       "scale" : "3x"
     }
   ],

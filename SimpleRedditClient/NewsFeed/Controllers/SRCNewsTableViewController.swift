@@ -26,6 +26,8 @@ class SRCNewsTableViewController: UITableViewController, SRCNewsTableViewCellDel
     // MARK: UIView lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.estimatedRowHeight = 100.0
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
         
         refreshControl = UIRefreshControl()
@@ -87,13 +89,6 @@ class SRCNewsTableViewController: UITableViewController, SRCNewsTableViewCellDel
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        templateNewsTableViewCell.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 0)
-        templateNewsTableViewCell.updateWithPost(posts![indexPath.row], startThumbnailDownload: false)
-        templateNewsTableViewCell.layoutIfNeeded()
-        return templateNewsTableViewCell.contentHeight
-    }
-    
     //MARK: SRCNewsTableViewCellDelegate
     func newsTableViewCellThumbnailTapped(sender: SRCNewsTableViewCell) {
         guard let post = sender.post else {
@@ -106,13 +101,6 @@ class SRCNewsTableViewController: UITableViewController, SRCNewsTableViewCellDel
     /////////////////////////////////////////
     // MARK: PRIVATE
     // MARK: Accessors
-    private var _templateNewsTableViewCell: SRCNewsTableViewCell?
-    private var templateNewsTableViewCell: SRCNewsTableViewCell! {
-        if _templateNewsTableViewCell == nil {
-            _templateNewsTableViewCell = (tableView.dequeueReusableCell(withIdentifier: SRCNewsTableViewCell.identifier()) as! SRCNewsTableViewCell)
-        }
-        return _templateNewsTableViewCell!
-    }
     private var newsDownloadingInProgress = false
     private var posts: [SRCPost]? {
         didSet {

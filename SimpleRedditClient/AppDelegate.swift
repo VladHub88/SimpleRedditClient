@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            let navigationController = UINavigationController(rootViewController: newsContainerViewController)
            window.rootViewController = navigationController
         }
+
+        URLCache.shared = URLCache(memoryCapacity: 32*1024*1024, diskCapacity: 64*1024*1024, diskPath: nil)
     
         return true
     }

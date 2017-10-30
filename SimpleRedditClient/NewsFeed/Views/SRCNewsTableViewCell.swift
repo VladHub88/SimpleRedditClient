@@ -23,18 +23,6 @@ class SRCNewsTableViewCell: UITableViewCell {
         return String(describing: self)
     }
     
-    var contentHeight: CGFloat {
-        guard post != nil else {
-            return 0
-        }
-        
-        let contentHeight = authorLabel.intrinsicContentSize.height + dateLabel.intrinsicContentSize.height +
-            titleLabel.intrinsicContentSize.height + 2 * Constants.verticalContentIndent +
-            titleLabelBottomIndentConstraint.constant + commentsLabelBottomIndentConstraint.constant
-        
-        return contentHeight
-    }
-    
     // MARK: Init/Deinit
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -46,16 +46,16 @@
         <scene sceneID="E5P-hA-mvE">
             <objects>
                 <tableViewController id="mMc-wc-icq" customClass="SRCNewsTableViewController" customModule="SimpleRedditClient" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="102" sectionHeaderHeight="28" sectionFooterHeight="28" id="keY-kK-2Pp">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="keY-kK-2Pp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SRCNewsTableViewCell" rowHeight="102" id="4J3-CK-CVs" customClass="SRCNewsTableViewCell" customModule="SimpleRedditClient" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="102"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SRCNewsTableViewCell" rowHeight="100" id="4J3-CK-CVs" customClass="SRCNewsTableViewCell" customModule="SimpleRedditClient" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4J3-CK-CVs" id="LND-ja-EaW">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="102"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XuC-1b-Nhl">
@@ -115,6 +115,7 @@
                                         <constraint firstItem="CzN-t6-NRU" firstAttribute="centerY" secondItem="VRu-Ni-RRN" secondAttribute="centerY" id="5aq-RS-0VT"/>
                                         <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="6Lb-ce-omk" secondAttribute="trailing" id="BLA-hb-87b"/>
                                         <constraint firstItem="Rn3-FG-7PI" firstAttribute="leading" secondItem="7O1-88-UoW" secondAttribute="trailing" constant="6" id="H67-PK-rpf"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="9Le-yJ-vB5" secondAttribute="bottom" constant="9" id="Hm1-tV-oUL"/>
                                         <constraint firstItem="CzN-t6-NRU" firstAttribute="leading" secondItem="VRu-Ni-RRN" secondAttribute="trailing" constant="4" id="Idv-wN-3tQ"/>
                                         <constraint firstItem="7O1-88-UoW" firstAttribute="centerY" secondItem="9Le-yJ-vB5" secondAttribute="centerY" id="SEZ-rM-8Fx"/>
                                         <constraint firstItem="6Lb-ce-omk" firstAttribute="top" secondItem="LND-ja-EaW" secondAttribute="topMargin" id="Uhe-kX-Fxs"/>
