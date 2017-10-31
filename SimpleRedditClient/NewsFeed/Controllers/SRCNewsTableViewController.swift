@@ -94,8 +94,10 @@ class SRCNewsTableViewController: UITableViewController, SRCNewsTableViewCellDel
         
             getMoreNews(completion: { [weak self] (posts, error) in
                 DispatchQueue.main.async {
-                    self?.showErrorAlertWithTitle(Constants.cannotLoadTopNewsTitle, message: Constants.pleaseTryAgainMessage)
                     tableView.tableFooterView = nil
+                    if error != nil {
+                        self?.showErrorAlertWithTitle(Constants.cannotLoadTopNewsTitle, message: Constants.pleaseTryAgainMessage)
+                    }
                 }
             })
         }
