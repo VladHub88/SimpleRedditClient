@@ -40,7 +40,6 @@ class SRCNewsContainerViewController: UIViewController, SRCNewsTableViewControll
         if segue.identifier == SRCNewsTableViewController.identifier(),
             let newsTableViewController = segue.destination as? SRCNewsTableViewController {
             newsTableViewController.newsService = newsService
-            newsTableViewController.refreshNews()
             newsTableViewController.delegate = self
             self.tableViewController = newsTableViewController
         }

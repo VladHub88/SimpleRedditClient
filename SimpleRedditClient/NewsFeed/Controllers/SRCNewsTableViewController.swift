@@ -28,10 +28,16 @@ class SRCNewsTableViewController: UITableViewController, SRCNewsTableViewCellDel
         super.viewDidLoad()
         tableView.estimatedRowHeight = 100.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.tableFooterView = UIView()
         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(self.refreshNews), for: UIControlEvents.valueChanged)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if posts?.isEmpty != false {
+            refreshNews()
+        }
     }
 
     // MARK: Helpers
@@ -46,10 +52,15 @@ class SRCNewsTableViewController: UITableViewController, SRCNewsTableViewCellDel
         newsDownloadingInProgress = true
         refreshControl?.beginRefreshing()
         newsService?.getTopNews(completion: { [weak self] (posts, error) in
-            self?.refreshControl?.endRefreshing()
             self?.newsDownloadingInProgress = false
+            DispatchQueue.main.async {
+                self?.refreshControl?.endRefreshing()
+            }
+            
             guard error == nil else {
-                // TODO: Show alert
+                DispatchQueue.main.async {
+                    self?.showErrorAlertWithTitle(Constants.cannotLoadTopNewsTitle, message: Constants.pleaseTryAgainMessage)
+                }
                 return
             }
             
@@ -81,9 +92,10 @@ class SRCNewsTableViewController: UITableViewController, SRCNewsTableViewCellDel
             spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
             tableView.tableFooterView = spinner
         
-            getMoreNews(completion: { (posts, error) in
+            getMoreNews(completion: { [weak self] (posts, error) in
                 DispatchQueue.main.async {
-                    tableView.tableFooterView = UIView()
+                    self?.showErrorAlertWithTitle(Constants.cannotLoadTopNewsTitle, message: Constants.pleaseTryAgainMessage)
+                    tableView.tableFooterView = nil
                 }
             })
         }
@@ -134,5 +146,17 @@ class SRCNewsTableViewController: UITableViewController, SRCNewsTableViewCellDel
             }
             completion(posts, nil)
         })
+    }
+    
+    private func showErrorAlertWithTitle(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: Types
+    private struct Constants {
+        static let cannotLoadTopNewsTitle = "Cannot load top news"
+        static let pleaseTryAgainMessage = "Please try to refresh later"
     }
 }

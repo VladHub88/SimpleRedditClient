@@ -57,6 +57,14 @@ class SRCNewsGalleryViewController: UIViewController, UIWebViewDelegate, UIViewC
         }
     }
     
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        activityIndicatorView.stopAnimating()
+        activityIndicatorView.isHidden = true
+        showNoDataImage()
+        
+        showErrorAlertWithTitle(Constants.cannotLoadTitle, message: Constants.pleaseTryAgainMessage)
+    }
+    
     // MARK: UIViewControllerRestoration
     static func viewController(withRestorationIdentifierPath identifierComponents: [Any], coder: NSCoder) -> UIViewController? {
         return SRCNewsGalleryViewController.createNewsGalleryViewController(post: nil)
@@ -123,6 +131,12 @@ class SRCNewsGalleryViewController: UIViewController, UIWebViewDelegate, UIViewC
         view.addSubview(noDataImageView)
     }
     
+    private func showErrorAlertWithTitle(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     @objc private func share(_ sender: AnyObject) {
         guard let loadedImage = loadedImage else {
             return
@@ -134,6 +148,8 @@ class SRCNewsGalleryViewController: UIViewController, UIWebViewDelegate, UIViewC
     
     // MARK: Types
     private struct Constants {
+        static let cannotLoadTitle = "Cannot load url"
+        static let pleaseTryAgainMessage = "Please try again later"
         static let postKey = "postKey"
     }
 }
