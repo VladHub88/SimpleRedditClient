@@ -13,16 +13,16 @@
         <!--News Container View Controller-->
         <scene sceneID="1ed-2U-qiM">
             <objects>
-                <viewController storyboardIdentifier="SRCNewsContainerViewController" id="mvm-uL-n2S" customClass="SRCNewsContainerViewController" customModule="SimpleRedditClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="SRCNewsContainerViewController" storyboardIdentifier="SRCNewsContainerViewController" id="mvm-uL-n2S" customClass="SRCNewsContainerViewController" customModule="SimpleRedditClient" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ICQ-b4-qrB"/>
                         <viewControllerLayoutGuide type="bottom" id="91V-zN-vdY"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="FUK-x1-lTx">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="NewsFeedRootView" id="FUK-x1-lTx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rw1-IS-t9g">
+                            <containerView opaque="NO" contentMode="scaleToFill" restorationIdentifier="NewsFeedContainer" translatesAutoresizingMaskIntoConstraints="NO" id="rw1-IS-t9g">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <connections>
                                     <segue destination="mMc-wc-icq" kind="embed" identifier="SRCNewsTableViewController" id="ey1-KA-sIP"/>
@@ -45,7 +45,7 @@
         <!--News Table View Controller-->
         <scene sceneID="E5P-hA-mvE">
             <objects>
-                <tableViewController id="mMc-wc-icq" customClass="SRCNewsTableViewController" customModule="SimpleRedditClient" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="SRCNewsTableViewController" id="mMc-wc-icq" customClass="SRCNewsTableViewController" customModule="SimpleRedditClient" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="keY-kK-2Pp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,7 +55,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4J3-CK-CVs" id="LND-ja-EaW">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XuC-1b-Nhl">

@@ -9,13 +9,16 @@
 import UIKit
 import Foundation
 
-class SRCNewsGalleryViewController: UIViewController, UIWebViewDelegate {
+class SRCNewsGalleryViewController: UIViewController, UIWebViewDelegate, UIViewControllerRestoration {
     /////////////////////////////////////////
     // MARK: INTERNAL
     // MARK: Init/Deinit
-    class func createNewsGalleryViewController(post: SRCPost) -> SRCNewsGalleryViewController {
+    class func createNewsGalleryViewController(post: SRCPost?) -> SRCNewsGalleryViewController {
+        printEnterLog()
         let newsGalleryViewController = SRCNewsGalleryViewController()
         newsGalleryViewController.post = post
+        newsGalleryViewController.restorationIdentifier = "SRCNewsGalleryViewController"
+        newsGalleryViewController.restorationClass = SRCNewsGalleryViewController.self
         return newsGalleryViewController
     }
     
@@ -28,11 +31,7 @@ class SRCNewsGalleryViewController: UIViewController, UIWebViewDelegate {
         shareBarButtonItem?.isEnabled = false
         navigationItem.rightBarButtonItem = shareBarButtonItem
 
-        if let postUrl = post?.postUrl {
-            showWebViewForUrl(url: postUrl)
-        } else {
-            showNoDataImage()
-        }
+        loadPostUrl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +57,25 @@ class SRCNewsGalleryViewController: UIViewController, UIWebViewDelegate {
         }
     }
     
+    // MARK: UIViewControllerRestoration
+    static func viewController(withRestorationIdentifierPath identifierComponents: [Any], coder: NSCoder) -> UIViewController? {
+        return SRCNewsGalleryViewController.createNewsGalleryViewController(post: nil)
+    }
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        coder.encode(post, forKey: Constants.postKey)
+        super.encodeRestorableState(with: coder)
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        post = coder.decodeObject(forKey: Constants.postKey) as? SRCPost
+    }
+    
+    override func applicationFinishedRestoringState() {
+        loadPostUrl()
+    }
+    
     /////////////////////////////////////////
     // MARK: PRIVATE
     // MARK: Accessors
@@ -67,6 +85,7 @@ class SRCNewsGalleryViewController: UIViewController, UIWebViewDelegate {
     private let webView: UIWebView = {
         let webView = UIWebView()
         webView.scalesPageToFit = true
+        webView.restorationIdentifier = "NewsGalleryWebView"
         return webView
     }()
     private let activityIndicatorView: UIActivityIndicatorView = {
@@ -77,6 +96,14 @@ class SRCNewsGalleryViewController: UIViewController, UIWebViewDelegate {
     }()
     
     // MARK: Helpers
+    private func loadPostUrl() {
+        if let postUrl = post?.postUrl {
+            showWebViewForUrl(url: postUrl)
+        } else {
+            showNoDataImage()
+        }
+    }
+    
     private func showWebViewForUrl(url: URL) {
         webView.frame = view.frame
         webView.addSubview(activityIndicatorView)
@@ -103,5 +130,10 @@ class SRCNewsGalleryViewController: UIViewController, UIWebViewDelegate {
 
         let activityViewController = UIActivityViewController(activityItems: [loadedImage], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
+    }
+    
+    // MARK: Types
+    private struct Constants {
+        static let postKey = "postKey"
     }
 }

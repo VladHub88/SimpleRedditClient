@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-protocol SRCPost {
+protocol SRCPost: NSCoding {
     var id: String { get }
     var name: String { get }
     var title: String { get }

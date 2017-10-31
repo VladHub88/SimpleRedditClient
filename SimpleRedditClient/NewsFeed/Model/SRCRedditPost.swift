@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class SRCRedditPost: SRCPost {
+class SRCRedditPost: NSObject, SRCPost {
     /////////////////////////////////////////
     // MARK: INTERNAL
     // MARK: Accessors
@@ -90,6 +90,39 @@ class SRCRedditPost: SRCPost {
         }).resume()
     }
     
+    // MARK: NSCoding
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(id, forKey: Constants.idKey)
+        aCoder.encode(name, forKey: Constants.nameKey)
+        aCoder.encode(title, forKey: Constants.titleKey)
+        aCoder.encode(author, forKey: Constants.authorKey)
+        aCoder.encode(creationDate, forKey: Constants.creationDateKey)
+        aCoder.encode(numberOfComments, forKey: Constants.numberOfCommentsKey)
+        aCoder.encode(thumbnailUrl, forKey: Constants.thumbnailKey)
+        if let thumbnailWidth = thumbnailWidth {
+            aCoder.encode(thumbnailWidth, forKey: Constants.thumbnailWidthKey)
+        }
+        if let thumbnailHeight = thumbnailHeight {
+            aCoder.encode(thumbnailHeight, forKey: Constants.thumbnailHeightKey)
+        }
+        aCoder.encode(thumbnail, forKey: Constants.thumbnailImageKey)
+        aCoder.encode(postUrl, forKey: Constants.postUrlKey)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        id = aDecoder.decodeObject(forKey: Constants.idKey) as! String
+        name = aDecoder.decodeObject(forKey: Constants.nameKey) as! String
+        title = aDecoder.decodeObject(forKey: Constants.titleKey) as! String
+        author = aDecoder.decodeObject(forKey: Constants.authorKey) as! String
+        creationDate = aDecoder.decodeObject(forKey: Constants.creationDateKey) as! Date
+        numberOfComments = aDecoder.decodeInteger(forKey: Constants.numberOfCommentsKey)
+        thumbnailUrl = aDecoder.decodeObject(forKey: Constants.thumbnailKey) as? URL
+        thumbnailWidth = aDecoder.decodeFloat(forKey: Constants.thumbnailWidthKey)
+        thumbnailHeight = aDecoder.decodeFloat(forKey: Constants.thumbnailHeightKey)
+        thumbnail = aDecoder.decodeObject(forKey: Constants.thumbnailImageKey) as? UIImage
+        postUrl = aDecoder.decodeObject(forKey: Constants.postUrlKey) as? URL
+    }
+    
     /////////////////////////////////////////
     // MARK: PRIVATE
     // MARK: Accessors
@@ -110,5 +143,6 @@ class SRCRedditPost: SRCPost {
         static let thumbnailWidthKey = "thumbnail_width"
         static let thumbnailHeightKey = "thumbnail_height"
         static let postUrlKey = "url"
+        static let thumbnailImageKey = "thumbnailImage"
     }
 }

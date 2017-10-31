@@ -13,11 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         if let window = self.window {
            let newsContainerViewController = SRCNewsContainerViewController.createNewsContainerViewController(newsService: SRCRedditNewsService())
-           let navigationController = UINavigationController(rootViewController: newsContainerViewController)
-           window.rootViewController = navigationController
+           if let rootNavigationController = window.rootViewController as? UINavigationController {
+                rootNavigationController.viewControllers = [newsContainerViewController]
+           }
         }
 
         URLCache.shared = URLCache(memoryCapacity: 32*1024*1024, diskCapacity: 64*1024*1024, diskPath: nil)
@@ -46,7 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    // State preservation/restoration
+    func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
+    
+    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        return true
+    }
 }
 
